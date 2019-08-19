@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  challenge.api:
+    image: ${DOCKER_REGISTRY-}challengeapi
+    build:
+      context: .
+      dockerfile: Challenge.Api/Dockerfile
+    links:
+      - rabbitmq
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: "teste"
+      RABBITMQ_DEFAULT_PASS: "teste"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
